@@ -116,26 +116,26 @@ namespace Snake
 					}
 				}
 
-				Position snakeHead = snakeElements.Last();
-				Position nextDirection = directions[direction];
+				Position snakeHead = snakeElements.Last();//Set the head of the snake to the last item of the body
+				Position nextDirection = directions[direction];//Define the next direction of snake move after user enter the arrow key
 
 				Position snakeNewHead = new Position(snakeHead.row + nextDirection.row,
-					snakeHead.col + nextDirection.col);
+					snakeHead.col + nextDirection.col);//Set the next body movind direction to the head of snake
 
-				if (snakeNewHead.col < 0) snakeNewHead.col = Console.WindowWidth - 1;
-				if (snakeNewHead.row < 0) snakeNewHead.row = Console.WindowHeight - 1;
-				if (snakeNewHead.row >= Console.WindowHeight) snakeNewHead.row = 0;
-				if (snakeNewHead.col >= Console.WindowWidth) snakeNewHead.col = 0;
+				if (snakeNewHead.col < 0) snakeNewHead.col = Console.WindowWidth - 1;//if the snake head hit the left wall, the snake will pass through it and appear on the right wall
+				if (snakeNewHead.row < 0) snakeNewHead.row = Console.WindowHeight - 1;//if the snake head hit the top wall, the snake will pass through it and appear on the bottom wall
+				if (snakeNewHead.row >= Console.WindowHeight) snakeNewHead.row = 0;//if the snake head hit the bottom wall, the snake will pass through it and appear on the top wall
+				if (snakeNewHead.col >= Console.WindowWidth) snakeNewHead.col = 0;//if the snake head hit the right wall, the snake will pass through it and appear on the left wall
 
-				if (snakeElements.Contains(snakeNewHead) || obstacles.Contains(snakeNewHead))
+				if (snakeElements.Contains(snakeNewHead) || obstacles.Contains(snakeNewHead))//if the head of the snake hit the body of snake or obstacle
 				{
-					Console.SetCursorPosition(0, 0);
-					Console.ForegroundColor = ConsoleColor.Red;
-					Console.WriteLine("Game over!");
-					int userPoints = (snakeElements.Count - 6) * 100 - negativePoints;
+					Console.SetCursorPosition(0, 0);//Set the cursor position to the beginning
+					Console.ForegroundColor = ConsoleColor.Red;//Set the font color to red
+					Console.WriteLine("Game over!");//Display the text
+					int userPoints = (snakeElements.Count - 6) * 100 - negativePoints;//Calculate the score of the player
 					//if (userPoints < 0) userPoints = 0;
-					userPoints = Math.Max(userPoints, 0);
-					Console.WriteLine("Your points are: {0}", userPoints);
+					userPoints = Math.Max(userPoints, 0);//round the score to int
+					Console.WriteLine("Your points are: {0}", userPoints);//Display the score
 					return;
 				}
 
