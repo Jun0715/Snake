@@ -167,26 +167,26 @@ namespace Snake
 					Console.Write("@");
 					sleepTime--;
 
-					Position obstacle = new Position();
+					Position obstacle = new Position();//Define a obstacle	position
 					do
 					{
 						obstacle = new Position(randomNumbersGenerator.Next(0, Console.WindowHeight),
-							randomNumbersGenerator.Next(0, Console.WindowWidth));
+							randomNumbersGenerator.Next(0, Console.WindowWidth));//define a random place the obstacle into the game field
 					}
 					while (snakeElements.Contains(obstacle) ||
 						obstacles.Contains(obstacle) ||
-						(food.row != obstacle.row && food.col != obstacle.row));
-					obstacles.Add(obstacle);
-					Console.SetCursorPosition(obstacle.col, obstacle.row);
-					Console.ForegroundColor = ConsoleColor.Cyan;
-					Console.Write("=");
+						(food.row != obstacle.row && food.col != obstacle.row));//Redo if the position consist the location without snake body, food and existing obstacle
+					obstacles.Add(obstacle);//Add the obstacle to its array
+					Console.SetCursorPosition(obstacle.col, obstacle.row);//set the cursor to that position
+					Console.ForegroundColor = ConsoleColor.Cyan;//set the font color to cyan
+					Console.Write("=");//write the obstacle to the screen
 				}
 				else
 				{
 					// moving...
-					Position last = snakeElements.Dequeue();
-					Console.SetCursorPosition(last.col, last.row);
-					Console.Write(" ");
+					Position last = snakeElements.Dequeue();//Define the last position of the snake body
+					Console.SetCursorPosition(last.col, last.row);//Get the curser of that position
+					Console.Write(" ");//Display space at that field
 				}
 
 				if (Environment.TickCount - lastFoodTime >= foodDissapearTime)
