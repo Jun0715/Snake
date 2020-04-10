@@ -192,20 +192,20 @@ namespace Snake
 					Console.Write(" ");
 					do
 					{
-						food = new Position(randomNumbersGenerator.Next(0, Console.WindowHeight),
-							randomNumbersGenerator.Next(0, Console.WindowWidth));
+						food = new Position(randomNumbersGenerator.Next(0, Console.WindowHeight),//randomize the window height of the food position
+							randomNumbersGenerator.Next(0, Console.WindowWidth));//randomize the window width of the food position
 					}
 					while (snakeElements.Contains(food) || obstacles.Contains(food));
-					lastFoodTime = Environment.TickCount;
+					lastFoodTime = Environment.TickCount;//gets the millisecond count from the computer's system timer
 				}
 
-				Console.SetCursorPosition(food.col, food.row);
-				Console.ForegroundColor = ConsoleColor.Yellow;
+				Console.SetCursorPosition(food.col, food.row);//set the food column and row position
+				Console.ForegroundColor = ConsoleColor.Yellow;//set the foreground color to yellow
 				Console.Write("@");
 
-				sleepTime -= 0.01;
+				sleepTime -= 0.01;//deducts the sleep time by 0.01
 
-				Thread.Sleep((int)sleepTime);
+				Thread.Sleep((int)sleepTime);//suspends the current thread for the specified number of milliseconds
 			}
 		}
 	}
