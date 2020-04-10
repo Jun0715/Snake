@@ -65,23 +65,26 @@ namespace Snake
 			{
 				snakeElements.Enqueue(new Position(0, i));
 			}
-
+				
+			//position of the food
 			Position food;
+			//randomize the position of the food
 			do
 			{
 				food = new Position(randomNumbersGenerator.Next(0, Console.WindowHeight),
 					randomNumbersGenerator.Next(0, Console.WindowWidth));
 			}
+			//while the snake or the obstacles touches the food, its position will always changed
 			while (snakeElements.Contains(food) || obstacles.Contains(food));
-			Console.SetCursorPosition(food.col, food.row);
-			Console.ForegroundColor = ConsoleColor.Yellow;
+			Console.SetCursorPosition(food.col, food.row);//set the column and row position of the food
+			Console.ForegroundColor = ConsoleColor.Yellow;//set the foreground color to yellow
 			Console.Write("@");
 
 			foreach (Position position in snakeElements)
 			{
-				Console.SetCursorPosition(position.col, position.row);
-				Console.ForegroundColor = ConsoleColor.DarkGray;
-				Console.Write("*");
+				Console.SetCursorPosition(position.col, position.row);//set the column and row position of snake elements
+				Console.ForegroundColor = ConsoleColor.DarkGray;//set the foreground color to dark grey
+				Console.Write("*");//this is the body of snake
 			}
 
 			while (true)
@@ -132,17 +135,17 @@ namespace Snake
 					return;
 				}
 
-				Console.SetCursorPosition(snakeHead.col, snakeHead.row);
-				Console.ForegroundColor = ConsoleColor.DarkGray;
-				Console.Write("*");
+				Console.SetCursorPosition(snakeHead.col, snakeHead.row);//set the column and row position of the snake head
+				Console.ForegroundColor = ConsoleColor.DarkGray;//set the foreground color to dark grey
+				Console.Write("*");//this is the body of snake
 
 				snakeElements.Enqueue(snakeNewHead);
 				Console.SetCursorPosition(snakeNewHead.col, snakeNewHead.row);
 				Console.ForegroundColor = ConsoleColor.Gray;
-				if (direction == right) Console.Write(">");
-				if (direction == left) Console.Write("<");
-				if (direction == up) Console.Write("^");
-				if (direction == down) Console.Write("v");
+				if (direction == right) Console.Write(">");//the snake head turns right
+				if (direction == left) Console.Write("<");//the snake head turns left
+				if (direction == up) Console.Write("^");//the snake head turns up
+				if (direction == down) Console.Write("v");//the snake head turns down
 
 
 				if (snakeNewHead.col == food.col && snakeNewHead.row == food.row)
