@@ -30,14 +30,15 @@ namespace Snake
 			int foodDissapearTime = 8000;
 			int negativePoints = 0;
 			
-			//Create an array of each of the positions
+			//Create an array of the coordinates
 			Position[] directions = new Position[]
 			{
 				new Position(0, 1), // right
-                new Position(0, -1), // left
-                new Position(1, 0), // down
-                new Position(-1, 0), // up
-            };
+               			new Position(0, -1), // left
+               			new Position(1, 0), // down
+                		new Position(-1, 0), // up
+            		};
+			
 			double sleepTime = 100;
 			int direction = right;
 			Random randomNumbersGenerator = new Random();
