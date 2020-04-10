@@ -7,11 +7,15 @@ using System.Threading;
 
 namespace Snake
 {
+	/// <summary>
+	/// Define the position for Food, Snake Head and obstacle
+	/// It specify the row and column of its position
+	/// </summary>
 	struct Position
 	{
 		public int row;
 		public int col;
-		public Position(int row, int col)
+		public Position(int row, int col)//Constructor for specify the position of the Item
 		{
 			this.row = row;
 			this.col = col;
@@ -22,13 +26,13 @@ namespace Snake
 	{
 		static void Main(string[] args)
 		{
-			byte right = 0;
-			byte left = 1;
-			byte down = 2;
-			byte up = 3;
-			int lastFoodTime = 0;
-			int foodDissapearTime = 8000;
-			int negativePoints = 0;
+			byte right = 0;//Define the direction of right of snake
+			byte left = 1;//Define the direction of left of snake
+			byte down = 2;//Define the direction of down of snake
+			byte up = 3;//Define the direction of up of snake
+			int lastFoodTime = 0;//Define the life time of the food 
+			int foodDissapearTime = 8000;//Define the disappear time of the food in milisecond
+			int negativePoints = 0;//Define the score need to be minus if food disappear
 			
 			//Create an array of the coordinates
 			Position[] directions = new Position[]
@@ -39,11 +43,11 @@ namespace Snake
                 		new Position(-1, 0), // up
             		};
 			
-			double sleepTime = 100;
-			int direction = right;
-			Random randomNumbersGenerator = new Random();
-			Console.BufferHeight = Console.WindowHeight;
-			lastFoodTime = Environment.TickCount;
+			double sleepTime = 100;//Define the speed of the sname
+			int direction = right;//Define the moving direction of the snake  at beginning
+			Random randomNumbersGenerator = new Random();//Define the random number generator
+			Console.BufferHeight = Console.WindowHeight;//Set the screen size of the game to the console size
+			lastFoodTime = Environment.TickCount;//Set the timer of the food
 
 			List<Position> obstacles = new List<Position>()
 			{
