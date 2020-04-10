@@ -29,7 +29,8 @@ namespace Snake
 			int lastFoodTime = 0;
 			int foodDissapearTime = 8000;
 			int negativePoints = 0;
-
+			
+			//Create an array of each of the positions
 			Position[] directions = new Position[]
 			{
 				new Position(0, 1), // right
