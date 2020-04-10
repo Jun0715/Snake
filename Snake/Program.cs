@@ -48,7 +48,8 @@ namespace Snake
 			Random randomNumbersGenerator = new Random();//Define the random number generator
 			Console.BufferHeight = Console.WindowHeight;//Set the screen size of the game to the console size
 			lastFoodTime = Environment.TickCount;//Set the timer of the food
-
+			
+			//Initialize the position of the obstacles
 			List<Position> obstacles = new List<Position>()
 			{
 				new Position(12, 12),
@@ -57,13 +58,15 @@ namespace Snake
 				new Position(19, 19),
 				new Position(6, 9),
 			};
+			//Display the obstacles when start the game by using loop
 			foreach (Position obstacle in obstacles)
 			{
-				Console.ForegroundColor = ConsoleColor.Cyan;
-				Console.SetCursorPosition(obstacle.col, obstacle.row);
-				Console.Write("=");
+				Console.ForegroundColor = ConsoleColor.Cyan;	//set the color of the obstacles
+				Console.SetCursorPosition(obstacle.col, obstacle.row);	//set the column and row position of the obstacles
+				Console.Write("=");	//set the shape of the obstales
 			}
-
+			
+			//Initialize the length of the "snake tail"
 			Queue<Position> snakeElements = new Queue<Position>();
 			for (int i = 0; i <= 5; i++)
 			{
@@ -95,7 +98,7 @@ namespace Snake
 			{
 				negativePoints++;
 
-				if (Console.KeyAvailable)
+				if (Console.KeyAvailable)	//To gets a value indicating whether a key press is available in the input stream.
 				{
 					ConsoleKeyInfo userInput = Console.ReadKey();
 					if (userInput.Key == ConsoleKey.LeftArrow)
@@ -158,13 +161,13 @@ namespace Snake
 					do
 					{
 						food = new Position(randomNumbersGenerator.Next(0, Console.WindowHeight),
-							randomNumbersGenerator.Next(0, Console.WindowWidth));
+							randomNumbersGenerator.Next(0, Console.WindowWidth));	//define a random place the food into the game field
 					}
 					while (snakeElements.Contains(food) || obstacles.Contains(food));
 					lastFoodTime = Environment.TickCount;
-					Console.SetCursorPosition(food.col, food.row);
-					Console.ForegroundColor = ConsoleColor.Yellow;
-					Console.Write("@");
+					Console.SetCursorPosition(food.col, food.row);	//set the cursor to that position
+					Console.ForegroundColor = ConsoleColor.Yellow;	//set the color of food to Yellow
+					Console.Write("@");	//set the shape of food
 					sleepTime--;
 
 					Position obstacle = new Position();//Define a obstacle	position
