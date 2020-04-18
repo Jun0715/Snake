@@ -57,7 +57,7 @@ namespace Snake
 			}
 			
 			//Initialize the position of the obstacles
-			List<Position> obstacles = new List<Position>()
+			List<Position> obstacles = new List<Position>();
 			for (int i = 0; i < 5; ++i)
 			{
 				Position obstacle;
