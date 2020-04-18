@@ -39,10 +39,10 @@ namespace Snake
 			int win_score = 500;//Define the score of winning
 			
 			//create object
-			SoundPlayer back_player = new SoundPlayer("./Snakesongv2.wav");
-			SoundPlayer eat_player = new SoundPlayer("./eat.wav");
-			SoundPlayer gameover_player = new SoundPlayer("./gameover.wav");
-			SoundPlayer win_player = new SoundPlayer("./win.wav");
+			SoundPlayer back_player = new SoundPlayer("Snakesongv2.wav");
+			SoundPlayer eat_player = new SoundPlayer("eat.wav");
+			SoundPlayer gameover_player = new SoundPlayer("gameover.wav");
+			SoundPlayer win_player = new SoundPlayer("win.wav");
 			
 			//play blackground music by looping
 			back_player.PlayLooping();
