@@ -167,11 +167,14 @@ namespace Snake
 					//if (userPoints < 0) userPoints = 0;
 					string msg = "You Win!";
 					string score_msg = "Your points are: " + current_score;
+					string exit_msg = "Press enter to exit the game.";
 					Console.SetCursorPosition((Console.WindowWidth - msg.Length) / 2, (Console.WindowHeight / 2));  //Set the cursor position to the beginning
 					Console.ForegroundColor = ConsoleColor.Red;//Set the font color to red
 					Console.WriteLine(msg);//Display the text
 					Console.SetCursorPosition((Console.WindowWidth - score_msg.Length) / 2, (Console.WindowHeight / 2) + 1);
 					Console.Write(score_msg);//Display the score
+					Console.SetCursorPosition((Console.WindowWidth - exit_msg.Length) / 2, (Console.WindowHeight / 2) + 2);
+					Console.Write(exit_msg);
 					string fullPath = Directory.GetCurrentDirectory() + "/score.txt";
 					using (StreamWriter writer = new StreamWriter(fullPath))
 					{
