@@ -197,6 +197,14 @@ namespace Snake
 					Console.Write(score_msg);//Display the score
 					Console.SetCursorPosition((Console.WindowWidth - exit_msg.Length) / 2, (Console.WindowHeight / 2) + 2);
 					Console.Write(exit_msg);
+					string fullPath = Directory.GetCurrentDirectory() + "/score.txt";
+					using (StreamWriter writer = new StreamWriter(fullPath))
+					{
+						writer.WriteLine(current_score.ToString());
+					}
+					// Read a file  
+
+					string readText = File.ReadAllText(fullPath);
 					Console.ReadLine();
 					return;
 				}
