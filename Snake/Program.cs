@@ -149,13 +149,13 @@ namespace Snake
 				
 				if (snakeElements.Contains(snakeNewHead) || obstacles.Contains(snakeNewHead))//if the head of the snake hit the body of snake or obstacle
 				{
-					Console.SetCursorPosition(0, 0);//Set the cursor position to the beginning
+					string msg = "Game over!";
+					string score_msg = "Your points are: " + current_score;
+					Console.SetCursorPosition((Console.WindowWidth - msg.Length) / 2, (Console.WindowHeight / 2));  //Set the cursor position to the beginning
 					Console.ForegroundColor = ConsoleColor.Red;//Set the font color to red
-					Console.WriteLine("Game over!");//Display the text
-					int userPoints = (snakeElements.Count - 6) * 100 - negativePoints;//Calculate the score of the player
-					//if (userPoints < 0) userPoints = 0;
-					userPoints = Math.Max(userPoints, 0);//round the score to int
-					Console.WriteLine("Your points are: {0}", userPoints);//Display the score
+					Console.WriteLine(msg);//Display the text
+					Console.SetCursorPosition((Console.WindowWidth - score_msg.Length) / 2, (Console.WindowHeight / 2) + 1);
+					Console.Write(score_msg);//Display the score
 					return;
 				}
 
