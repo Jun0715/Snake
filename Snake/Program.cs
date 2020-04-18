@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Collections;
 using System.Threading;
+using System.IO;
+using System.Media;
 
 namespace Snake
 {
@@ -34,6 +36,16 @@ namespace Snake
 			int foodDissapearTime = 20000;//Define the disappear time of the food to 20 seconds which made the food disappears slower
 			int negativePoints = 0;//Define the score need to be minus if food disappear
 			int snakebody_size_origin = 3;//Define the initial length of snake
+			int win_score = 500;//Define the score of winning
+			
+			//create object
+			SoundPlayer back_player = new SoundPlayer("Snakesongv2.wav");
+			SoundPlayer eat_player = new SoundPlayer("eat.wav");
+			SoundPlayer gameover_player = new SoundPlayer("gameover.wav");
+			SoundPlayer win_player = new SoundPlayer("win.wav");
+			
+			//play blackground music by looping
+			back_player.PlayLooping();
 			
 			//Create an array of the coordinates
 			Position[] directions = new Position[]
@@ -148,8 +160,33 @@ namespace Snake
 				Console.ForegroundColor = ConsoleColor.Red;//Set the font color to red	
 				Console.Write(score_title + current_score.ToString().PadLeft(3, '0'));//Display the text	
 				
+				//winning requirement
+				if (current_score >= win_score)
+				{
+					win_player.Play();
+					//if (userPoints < 0) userPoints = 0;
+					string msg = "You Win!";
+					string score_msg = "Your points are: " + current_score;
+					Console.SetCursorPosition((Console.WindowWidth - msg.Length) / 2, (Console.WindowHeight / 2));  //Set the cursor position to the beginning
+					Console.ForegroundColor = ConsoleColor.Red;//Set the font color to red
+					Console.WriteLine(msg);//Display the text
+					Console.SetCursorPosition((Console.WindowWidth - score_msg.Length) / 2, (Console.WindowHeight / 2) + 1);
+					Console.Write(score_msg);//Display the score
+					string fullPath = Directory.GetCurrentDirectory() + "/score.txt";
+					using (StreamWriter writer = new StreamWriter(fullPath))
+					{
+						writer.WriteLine(current_score.ToString());
+					}
+					// Read a file  
+
+					string readText = File.ReadAllText(fullPath);
+					Console.ReadLine();
+					return;
+				}
+				
 				if (snakeElements.Contains(snakeNewHead) || obstacles.Contains(snakeNewHead))//if the head of the snake hit the body of snake or obstacle
 				{
+					gameover_player.Play();
 					string msg = "Game over!";
 					string score_msg = "Your points are: " + current_score;
 					string exit_msg = "Press enter to exit the game.";
@@ -179,6 +216,9 @@ namespace Snake
 
 				if (snakeNewHead.col == food.col && snakeNewHead.row == food.row)
 				{
+					eat_player.Play();
+					Thread.Sleep(1000);
+					back_player.PlayLooping();
 					// feeding the snake
 					do
 					{
