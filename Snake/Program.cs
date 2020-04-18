@@ -51,19 +51,24 @@ namespace Snake
 			
 			//Initialize the position of the obstacles
 			List<Position> obstacles = new List<Position>()
+			for (int i = 0; i < 5; ++i)
 			{
-				new Position(12, 12),
-				new Position(14, 20),
-				new Position(7, 7),
-				new Position(19, 19),
-				new Position(6, 9),
-			};
-			//Display the obstacles when start the game by using loop
+				Position obstacle;
+				do
+				{
+					obstacle = new Position(randomNumbersGenerator.Next(1, Console.WindowHeight),
+						randomNumbersGenerator.Next(0, Console.WindowWidth));//define a random place the obstacle into the game field
+				}
+				while (snakeElements.Contains(obstacle) ||
+						obstacles.Contains(obstacle));
+				obstacles.Add(obstacle);
+			}
+			
 			foreach (Position obstacle in obstacles)
 			{
-				Console.ForegroundColor = ConsoleColor.Cyan;	//set the color of the obstacles
-				Console.SetCursorPosition(obstacle.col, obstacle.row);	//set the column and row position of the obstacles
-				Console.Write("=");	//set the shape of the obstales
+				Console.ForegroundColor = ConsoleColor.Cyan;
+				Console.SetCursorPosition(obstacle.col, obstacle.row);
+				Console.Write("=");
 			}
 			
 			//Initialize the length of the "snake tail"
