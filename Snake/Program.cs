@@ -33,6 +33,7 @@ namespace Snake
 			int lastFoodTime = 0;//Define the life time of the food 
 			int foodDissapearTime = 20000;//Define the disappear time of the food to 20 seconds which made the food disappears slower
 			int negativePoints = 0;//Define the score need to be minus if food disappear
+			int snakebody_size_origin = 3;//Define the initial length of snake
 			
 			//Create an array of the coordinates
 			Position[] directions = new Position[]
@@ -51,7 +52,7 @@ namespace Snake
 			
 			//Initialize the length of the "snake tail"
 			Queue<Position> snakeElements = new Queue<Position>();
-			for (int i = 0; i <= 5; i++)
+			for (int i = 0; i <= snakebody_size_origin; i++)
 			{
 				snakeElements.Enqueue(new Position(0, i));
 			}
@@ -135,7 +136,7 @@ namespace Snake
 				if (snakeNewHead.row >= Console.WindowHeight) snakeNewHead.row = 0;//if the snake head hit the bottom wall, the snake will pass through it and appear on the top wall
 				if (snakeNewHead.col >= Console.WindowWidth) snakeNewHead.col = 0;//if the snake head hit the right wall, the snake will pass through it and appear on the left wall
 
-				int current_score = (snakeElements.Count - 7) * 100 - negativePoints; //Calculate the score of the player
+				int current_score = (snakeElements.Count - snakebody_size_origin -1) * 100 - negativePoints; //Calculate the score of the player
 				current_score = Math.Max(current_score, 0) - 1;   //round the score to int
 
 				if (current_score < 0)//if score less than 0, score equal 0
