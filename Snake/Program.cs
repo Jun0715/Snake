@@ -49,6 +49,13 @@ namespace Snake
 			Console.BufferHeight = Console.WindowHeight;//Set the screen size of the game to the console size
 			lastFoodTime = Environment.TickCount;//Set the timer of the food
 			
+			//Initialize the length of the "snake tail"
+			Queue<Position> snakeElements = new Queue<Position>();
+			for (int i = 0; i <= 5; i++)
+			{
+				snakeElements.Enqueue(new Position(0, i));
+			}
+			
 			//Initialize the position of the obstacles
 			List<Position> obstacles = new List<Position>()
 			for (int i = 0; i < 5; ++i)
@@ -69,13 +76,6 @@ namespace Snake
 				Console.ForegroundColor = ConsoleColor.Cyan;
 				Console.SetCursorPosition(obstacle.col, obstacle.row);
 				Console.Write("=");
-			}
-			
-			//Initialize the length of the "snake tail"
-			Queue<Position> snakeElements = new Queue<Position>();
-			for (int i = 0; i <= 5; i++)
-			{
-				snakeElements.Enqueue(new Position(0, i));
 			}
 				
 			//position of the food
