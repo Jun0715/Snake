@@ -31,7 +31,7 @@ namespace Snake
 			byte down = 2;//Define the direction of down of snake
 			byte up = 3;//Define the direction of up of snake
 			int lastFoodTime = 0;//Define the life time of the food 
-			int foodDissapearTime = 8000;//Define the disappear time of the food in milisecond
+			int foodDissapearTime = 20000;//Define the disappear time of the food to 20 seconds which made the food disappears slower
 			int negativePoints = 0;//Define the score need to be minus if food disappear
 			
 			//Create an array of the coordinates
