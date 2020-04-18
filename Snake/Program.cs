@@ -135,6 +135,18 @@ namespace Snake
 				if (snakeNewHead.row >= Console.WindowHeight) snakeNewHead.row = 0;//if the snake head hit the bottom wall, the snake will pass through it and appear on the top wall
 				if (snakeNewHead.col >= Console.WindowWidth) snakeNewHead.col = 0;//if the snake head hit the right wall, the snake will pass through it and appear on the left wall
 
+				int current_score = (snakeElements.Count - 7) * 100 - negativePoints; //Calculate the score of the player
+				current_score = Math.Max(current_score, 0) - 1;   //round the score to int
+
+				if (current_score < 0)//if score less than 0, score equal 0
+				{
+					current_score = 0;
+				}
+				string score_title = "Score: ";                                                                           
+				Console.SetCursorPosition((Console.WindowWidth - score_title.Length - 4), 0);//Set position to top right corner  
+				Console.ForegroundColor = ConsoleColor.Red;//Set the font color to red	
+				Console.Write(score_title + current_score.ToString().PadLeft(3, '0'));//Display the text	
+				
 				if (snakeElements.Contains(snakeNewHead) || obstacles.Contains(snakeNewHead))//if the head of the snake hit the body of snake or obstacle
 				{
 					Console.SetCursorPosition(0, 0);//Set the cursor position to the beginning
