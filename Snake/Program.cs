@@ -50,6 +50,8 @@ namespace Snake
 			
 			int life = 3;
 			
+			int current_level = 1;
+			
 			//create object
 			SoundPlayer back_player = new SoundPlayer("Snakesongv2.wav");
 			SoundPlayer eat_player = new SoundPlayer("eat.wav");
@@ -170,38 +172,60 @@ namespace Snake
 				string score_title = "Score: ";                                                                           
 				Console.SetCursorPosition((Console.WindowWidth - score_title.Length - 4), 0);//Set position to top right corner  
 				Console.ForegroundColor = ConsoleColor.Red;//Set the font color to red	
-				Console.Write(score_title + current_score.ToString().PadLeft(3, '0'));//Display the text	
+				Console.Write(score_title + current_score.ToString().PadLeft(3, '0'));//Display the text
+				
+				string level_title = "Level: ";
+				Console.SetCursorPosition(0, 0);
+				Console.ForegroundColor = ConsoleColor.Red;//Set the font color to red	
+				Console.Write(level_title + current_level.ToString().PadLeft(3, '0'));//Display the text
 				
 				string life_title = "Life: ";
-				Console.SetCursorPosition(90, 0);//Set position to top right corner  
+				Console.SetCursorPosition(90, 0);
 				Console.ForegroundColor = ConsoleColor.Red;//Set the font color to red	
 				Console.Write(life_title + life.ToString().PadLeft(3, '0'));//Display the text
 				
 				//winning requirement
-				if (current_score >= win_score)
+				if (current_score / win_score > 0 && current_score>0)
 				{
-					win_player.Play();
-					//if (userPoints < 0) userPoints = 0;
-					string msg = "You Win!";
-					string score_msg = "Your points are: " + current_score;
-					string exit_msg = "Press enter to exit the game.";
-					Console.SetCursorPosition((Console.WindowWidth - msg.Length) / 2, (Console.WindowHeight / 2));  //Set the cursor position to the beginning
-					Console.ForegroundColor = ConsoleColor.Red;//Set the font color to red
-					Console.WriteLine(msg);//Display the text
-					Console.SetCursorPosition((Console.WindowWidth - score_msg.Length) / 2, (Console.WindowHeight / 2) + 1);
-					Console.Write(score_msg);//Display the score
-					Console.SetCursorPosition((Console.WindowWidth - exit_msg.Length) / 2, (Console.WindowHeight / 2) + 2);
-					Console.Write(exit_msg);
-					string fullPath = Directory.GetCurrentDirectory() + "/score.txt";
-					using (StreamWriter writer = new StreamWriter(fullPath))
+					int currentlength = snakeElements.Count;
+					current_level += 1;
+					negativePoints = 0;
+					win_score += 100;
+					for (int i = 1; i <(currentlength-snakebody_size_origin); ++i)
 					{
-						writer.WriteLine(current_score.ToString());
-					}
-					// Read a file  
+						Position last = snakeElements.Dequeue();//Define the last position of the snake body
+						Console.SetCursorPosition(last.col, last.row);//Get the curser of that position
+						Console.Write(" ");//Display space at that field
 
-					string readText = File.ReadAllText(fullPath);
-					Console.ReadLine();
-					return;
+					}
+					foreach (Position obstacle in obstacles)
+					{
+						Console.ForegroundColor = ConsoleColor.Cyan;
+						Console.SetCursorPosition(obstacle.col, obstacle.row);
+						Console.Write(" ");
+					}
+
+					obstacles.Clear();
+					
+					for (int i = 0; i < 5; ++i)
+					{
+						Position obstacle;
+						do
+						{
+							obstacle = new Position(randomNumbersGenerator.Next(1, Console.WindowHeight),
+								randomNumbersGenerator.Next(0, Console.WindowWidth));//define a random place the obstacle into the game field
+						}
+						while (snakeElements.Contains(obstacle) ||
+								obstacles.Contains(obstacle));
+						obstacles.Add(obstacle);
+					}
+
+					foreach (Position obstacle in obstacles)
+					{
+						Console.ForegroundColor = ConsoleColor.Cyan;
+						Console.SetCursorPosition(obstacle.col, obstacle.row);
+						Console.Write("=");
+					}
 				}
 				
 				if (snakeElements.Contains(snakeNewHead) || obstacles.Contains(snakeNewHead))//if the head of the snake hit the body of snake or obstacle
