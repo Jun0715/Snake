@@ -276,6 +276,8 @@ namespace Snake
 								writer.WriteLine(name + " " + current_level.ToString().PadLeft(2, '0') + " " + current_score.ToString().PadLeft(3, '0') + " " + finalscore.ToString().PadLeft(3, '0'));
 							}
 						}
+						Console.ReadKey();
+						return;
 					}
 				}
 
