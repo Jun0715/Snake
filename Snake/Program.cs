@@ -255,7 +255,7 @@ namespace Snake
 						Console.Write(exit_msg);//Display the exit message
 						string fullPath = Directory.GetCurrentDirectory() + "/score.txt";
 
-						int finalscore = 0;//jun
+						int finalscore = 0;
 						for (int index = 2; index <= current_level; ++index)
 						{
 							finalscore += ((index - 2) * 100) + 500;
