@@ -250,7 +250,7 @@ namespace Snake
 					}
 					while (snakeElements.Contains(obstacle) ||
 						obstacles.Contains(obstacle) ||
-						(food.row != obstacle.row && food.col == obstacle.row));//Redo if the position consist the location without snake body, food and existing obstacle
+						(food.row == obstacle.row && food.col == obstacle.row));//Redo if the position consist the location without snake body, food and existing obstacle
 					obstacles.Add(obstacle);//Add the obstacle to its array
 					Console.SetCursorPosition(obstacle.col, obstacle.row);//set the cursor to that position
 					Console.ForegroundColor = ConsoleColor.Cyan;//set the font color to cyan
