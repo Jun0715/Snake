@@ -240,26 +240,42 @@ namespace Snake
 					else
 					{
 						gameover_player.Play();
-						string msg = "Game over!";
-						string score_msg = "Your points are: " + current_score;
-						string exit_msg = "Press enter to exit the game.";
+						string msg = "Game over!";//Game over message
+						string level_msg = "Your level are: " + current_level;//Current level message
+						string score_msg = "Your points are: " + current_score;//Current score message
+						string exit_msg = "Press enter to exit the game.";//Exit message
 						Console.SetCursorPosition((Console.WindowWidth - msg.Length) / 2, (Console.WindowHeight / 2));  //Set the cursor position to the beginning
 						Console.ForegroundColor = ConsoleColor.Red;//Set the font color to red
 						Console.WriteLine(msg);//Display the text
-						Console.SetCursorPosition((Console.WindowWidth - score_msg.Length) / 2, (Console.WindowHeight / 2) + 1);
+						Console.SetCursorPosition((Console.WindowWidth - level_msg.Length) / 2, (Console.WindowHeight / 2) + 1);
+						Console.Write(level_msg);//Display the score
+						Console.SetCursorPosition((Console.WindowWidth - score_msg.Length) / 2, (Console.WindowHeight / 2) + 2);
 						Console.Write(score_msg);//Display the score
-						Console.SetCursorPosition((Console.WindowWidth - exit_msg.Length) / 2, (Console.WindowHeight / 2) + 2);
-						Console.Write(exit_msg);
+						Console.SetCursorPosition((Console.WindowWidth - exit_msg.Length) / 2, (Console.WindowHeight / 2) + 3);
+						Console.Write(exit_msg);//Display the exit message
 						string fullPath = Directory.GetCurrentDirectory() + "/score.txt";
-						using (StreamWriter writer = new StreamWriter(fullPath))
-						{
-							writer.WriteLine(current_score.ToString());
-						}
-						// Read a file  
 
-						string readText = File.ReadAllText(fullPath);
-						Console.ReadLine();
-						return;
+						int finalscore = 0;//jun
+						for (int index = 2; index <= current_level; ++index)
+						{
+							finalscore += ((index - 2) * 100) + 500;
+						}
+						finalscore += current_score;
+
+						if (!File.Exists(fullPath))
+						{
+							using (StreamWriter writer = new StreamWriter(fullPath))
+							{
+								writer.WriteLine(name + " " + current_level.ToString().PadLeft(2, '0') + " " + current_score.ToString().PadLeft(3, '0') + " " + finalscore.ToString().PadLeft(3, '0'));
+							}
+						}
+						else
+						{
+							using (StreamWriter writer = File.AppendText(fullPath))
+							{
+								writer.WriteLine(name + " " + current_level.ToString().PadLeft(2, '0') + " " + current_score.ToString().PadLeft(3, '0') + " " + finalscore.ToString().PadLeft(3, '0'));
+							}
+						}
 					}
 				}
 
