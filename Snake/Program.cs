@@ -237,10 +237,25 @@ namespace Snake
 
 				if (snakeNewHead.col == food.col && snakeNewHead.row == food.row)
 				{
-					eat_player.Play();
-					Thread.Sleep(1000);
+					eat_player.PlaySync();
+					
 					back_player.PlayLooping();
 					// feeding the snake
+					
+					Position obstacle = new Position();//Define a obstacle	position
+					do
+					{
+						obstacle = new Position(randomNumbersGenerator.Next(0, Console.WindowHeight),
+							randomNumbersGenerator.Next(0, Console.WindowWidth));//define a random place the obstacle into the game field
+					}
+					while (snakeElements.Contains(obstacle) ||
+						obstacles.Contains(obstacle) ||
+						(food.row != obstacle.row && food.col == obstacle.row));//Redo if the position consist the location without snake body, food and existing obstacle
+					obstacles.Add(obstacle);//Add the obstacle to its array
+					Console.SetCursorPosition(obstacle.col, obstacle.row);//set the cursor to that position
+					Console.ForegroundColor = ConsoleColor.Cyan;//set the font color to cyan
+					Console.Write("=");//write the obstacle to the screen
+					
 					do
 					{
 						food = new Position(randomNumbersGenerator.Next(0, Console.WindowHeight),
@@ -252,20 +267,6 @@ namespace Snake
 					Console.ForegroundColor = ConsoleColor.Yellow;	//set the color of food to Yellow
 					Console.Write("@");	//set the shape of food
 					sleepTime--;
-
-					Position obstacle = new Position();//Define a obstacle	position
-					do
-					{
-						obstacle = new Position(randomNumbersGenerator.Next(0, Console.WindowHeight),
-							randomNumbersGenerator.Next(0, Console.WindowWidth));//define a random place the obstacle into the game field
-					}
-					while (snakeElements.Contains(obstacle) ||
-						obstacles.Contains(obstacle) ||
-						(food.row != obstacle.row && food.col != obstacle.row));//Redo if the position consist the location without snake body, food and existing obstacle
-					obstacles.Add(obstacle);//Add the obstacle to its array
-					Console.SetCursorPosition(obstacle.col, obstacle.row);//set the cursor to that position
-					Console.ForegroundColor = ConsoleColor.Cyan;//set the font color to cyan
-					Console.Write("=");//write the obstacle to the screen
 				}
 				else
 				{
