@@ -28,6 +28,16 @@ namespace Snake
 	{
 		static void Main(string[] args)
 		{
+			string name;
+			do
+			{
+				Console.Write("What is your name with 10 character: ");//Prompt for the player's name
+				name = Console.ReadLine();
+			} while (name == "" || name.Length >10);
+
+
+			Console.Clear();
+			
 			byte right = 0;//Define the direction of right of snake
 			byte left = 1;//Define the direction of left of snake
 			byte down = 2;//Define the direction of down of snake
