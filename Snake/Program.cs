@@ -233,6 +233,19 @@ namespace Snake
 					if (life > 0)
 					{
 						life -= 1;
+						
+						List<Position> tempobstacles = new List<Position>();
+						foreach (Position obstacle in obstacles)
+						{
+							if (obstacle.col != snakeNewHead.col && obstacle.row != snakeNewHead.row) tempobstacles.Add(obstacle);
+						}
+
+						obstacles.Clear();
+						foreach (Position obstacle in tempobstacles)
+						{
+							obstacles.Add(obstacle);
+						}
+						
 						Position last = snakeElements.Dequeue();//Define the last position of the snake body
 						Console.SetCursorPosition(last.col, last.row);//Get the curser of that position
 						Console.Write(" ");//Display space at that field
